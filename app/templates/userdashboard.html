@@ -42,9 +42,11 @@
                             </span>
                         </a>
                     </div>
+                    {% if check_user %}
                     <div class="col-lg-6 col-sm-6 col-8 header-top-right">
                         <a href="#" class="text-uppercase">Login</a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -212,22 +214,25 @@
                       <div id="account" style="display:none">
                         <h1>My Account</h1>
                         <div>
-                            <form class="row contact_form" action="/checklogin/" method="POST">
+                           
+                            <form class="row contact_form" action="/editUserDetail/" method="POST">
+                                {% csrf_token %}
+                                {% for data in data %}
                                 <div style="width:100%;"class="form-group">
                                     <label style="color:blue;font-size:18px;margin-top:20px;font-weight:bold;">First Name</label>
-                                    <input style="font-weight:bold;font-size:25px;"class="form-control" name="first name" id="fname" type="text" value="sonali" disabled>
+                                    <input style="font-weight:bold;font-size:25px;"class="form-control" name="first_name" id="fname" type="text" value="{{data.User_FName}}" disabled>
                                 </div>
                                 <div style="width:100%;"class="form-group">
                                     <label style="color:blue;font-size:18px;margin-top:20px;font-weight:bold;">Last Name</label>
-                                    <input style="font-weight:bold;font-size:25px;" name="last name" id="lname" type="text" value="Kulshreshtha" disabled class="form-control">
+                                    <input style="font-weight:bold;font-size:25px;" name="last_name" id="lname" type="text" value="{{data.User_LName}}" disabled class="form-control">
                                 </div>
                                 <div style="width:100%;"class="form-group">
                                     <label style="color:blue;font-size:18px;margin-top:20px;font-weight:bold;">Email</label>
-                                    <input style="font-weight:bold;font-size:25px;" name="email" id="email" type="email" value="sonkul12@gmail.com" disabled class="form-control">
+                                    <input style="font-weight:bold;font-size:25px;" name="email" id="email" type="email" value="{{data.User_Email}}" disabled class="form-control">
                                 </div>
                                 <div style="width:100%;"class="form-group">
                                     <label style="color:blue;font-size:18px;margin-top:20px;font-weight:bold;">Phone</label>
-                                    <input style="font-size:25px;font-weight:bold;" name="phone" id="phone" type="number" value="5678902345" disabled class="form-control">
+                                    <input style="font-size:25px;font-weight:bold;" name="phone" id="phone" type="number" value="{{data.User_Phone}}" disabled class="form-control">
                                 </div>
                             
                                 <div style="width:100%;"class="form-group">
@@ -236,14 +241,17 @@
                                     <input class="btn primary-btn" type="reset" id="edit" onclick="enableinputs()" value="Edit">
                                     <a href="#password" class="btn primary-btn" style="margin-left:10px;" onclick="document.getElementById('password').style.display='block';">Change Password</a>
                                 </div>
-                        </form>
+                                {% endfor %}
+                            </form>
+                        
                             <div id="password" style="display:none;padding-top:50px;">
-                                <form class="row contact_form" action="/checklogin/" method="POST">
+                                <form class="row contact_form" action="/editPassword/" method="POST">
+                                    {% csrf_token %}
                                     <div style="width:100%;"class="form-group">
-                                        <input type="password" class="form-control" name="email"  rows="1" placeholder="Old Password">
+                                        <input type="password" class="form-control" name="old_password"  rows="1" placeholder="Old Password">
                                     </div>
                                     <div style="width:100%;"class="form-group">
-                                        <input type="password" style="margin-bottom:10px;"class="form-control" name="password" placeholder="New Password">
+                                        <input type="password" style="margin-bottom:10px;"class="form-control" name="new_password" placeholder="New Password">
                                     </div>
                                 
                                     <div style="width:100%;"class="form-group">
