@@ -9,6 +9,7 @@ import uuid
 from app.myutil import *
 import csv
 from datetime import date
+from .myutil import *
 
 # Create your views here.
 def index(request):
@@ -121,8 +122,7 @@ def checklogin(request):
 			return redirect('/userdashboard/')
 		else:
 			return HttpResponse("<script>alert('Incorrect Credentials'); window.location.replace('/login/')</script>")
-def userdashboard(request):
-	return render(request,'userdashboard.html',{})
+
 
 @csrf_exempt
 def adminlogincheck(request):
@@ -192,7 +192,10 @@ def admincourselist(request):
 	except:
 		return HttpResponse('<h1>Error 404 : Page Not Found</h1>')
 def userdashboard(request):
-	return render(request,'userdashboard.html',{})
+	if check_user:
+		uid=request.session['userid']
+		data=UserData.objects.filter(User_ID=uid).all()
+	return render(request,'userdashboard.html',{'data':data})
 def courseplayer(request):
 	return render(request,'courseplayer.html',{})
 def adminaddlectures(request):
@@ -205,3 +208,43 @@ def adminactiveusers(request):
 	return render(request,'adminpages/activeusers.html',{})
 def admindeactiveusers(request):
 	return render(request,'adminpages/deactiveusers.html',{})
+def forget_password(request):
+	if request.method=='POST':
+		uid=request.session['userid']
+		data=UserData.objects.filter(User_ID=uid).values('User_Password')[0]['User_Password']
+		sub='Your Account Password'
+		email=request.POST['email']
+		email=EmailMessage(sub,data,to=[email])
+		email.send()
+
+		return HttpResponse("<script>alert('Your Password has been send to your mail'); window.location.replace('/login/')</script>")
+	else:
+		return render(request,'forgot_password.html',{})
+def editUserDetail(request):
+	if request.method=='POST':
+		uid=request.session['userid']
+		user_data=UserData.objects.filter(User_ID=uid)
+		for i in user_data:
+			i.User_FName=request.POST['first_name']
+			i.User_LName=request.POST['last_name']
+			i.User_Phone=request.POST['phone']
+			i.save()
+			return HttpResponse("<script>alert('Congratulations !! Your details is SuccessFully Updated'); window.location.replace('/userdashboard/')</script>")
+def editPassword(request):
+	if request.method=='POST':
+		uid=request.session['userid']
+		user_data=UserData.objects.filter(User_ID=uid)
+		old_pass=UserData.objects.filter(User_ID=uid).values('User_Password')[0]['User_Password']
+		old_password=request.POST['old_password']
+		print(old_pass)
+		print(old_password)
+		if old_pass==old_password:
+			for i in user_data:
+				new_pass=int(request.POST['new_password'])
+				i.User_Password=new_pass
+				i.save()
+				return HttpResponse("<script>alert('Congratulations !! Your Password is SuccessFully Updated'); window.location.replace('/userdashboard/')</script>")
+		else:
+			return HttpResponse("<script>alert('Pleasr check your old password'); window.location.replace('/userdashboard/')</script>")
+
+

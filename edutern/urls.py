@@ -36,6 +36,9 @@ urlpatterns = [
     
     path('login/',login),
     path('registration/',registration),
+    path('forget_password/',forget_password),
+    path('editUserDetail/',editUserDetail),
+    path('editPassword/',editPassword),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
