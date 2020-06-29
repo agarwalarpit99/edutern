@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Edutern - Add Course</title>
+    <title>Edutern - Add Lectures</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -160,22 +160,22 @@
             <div class="card">
                 <div class="card-header"><strong>Add Lectures</strong><small> Form</small></div>
                     <div class="card-body card-block">
-                        <form action="/adminsavecourse/" method="POST" enctype="multipart/form-data">
+                        <form action="/adminsavelecture/" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="company" class=" form-control-label">Select Course</label>
-                                <select name="select" id="select" class="form-control">
-                                    <option value="0">Please select</option>
-                                    <option value="1">Option #1</option>
-                                    <option value="2">Option #2</option>
+                                <select name="course" id="select" class="form-control">
+                                    {% for x in data %}
+                                    <option value="{{ x.Course_ID|safe }}">{{ x.Course_Name|safe }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="company" class=" form-control-label">Lecture Name</label>
-                                <input type="text" name="lecture name" class="form-control">
+                                <input type="text" name="name" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="company" class=" form-control-label">Upload Video</label>
-                                <input type="file" name="upload video" class="form-control">
+                                <input type="file" name="video" class="form-control">
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Save" class="btn btn-success" onclick="document.getElementById('process').style.display='block';">

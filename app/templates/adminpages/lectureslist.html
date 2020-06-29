@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Edutern - Course List</title>
+    <title>Edutern - Lectures List</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -178,16 +178,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for x in data %}
                                         <tr>
-                                            <td>MAT45</td>
-                                            <td>BTEC456</td>
-                                            <td>Intro</td>
-                                            <td><video controls style="width:200px;">
-                                            <source src="{% static 'dheere.mp4' %}" type="video/mp4">
+                                            <td>{{ x.Lecture_ID|safe }}</td>
+                                            <td>{{ x.Course_ID|safe }}</td>
+                                            <td>{{ x.Lecture_Name|safe }}</td>
+                                            <td>
+                                                <video controls style="width:200px;">
+                                                    <source src="{{ x.Lecture_Video.url|safe }}" type="video/mp4">
                                                 </video>
                                             </td>
                                             <td><a class="btn btn-danger" href="">Delete</a></td>
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                                 </div>

@@ -21,9 +21,21 @@ def blog(request):
 def contact(request):
 	return render(request,'contact.html',{})
 def coursedetails(request):
-	return render(request,'course-details.html',{})
+	course_id=request.GET.get('course_id')
+	if CourseData.objects.filter(Course_ID=course_id).exists():
+		course_data=CourseData.objects.filter(Course_ID=course_id)
+		lecture_data=LecturesData.objects.filter(Course_ID=course_id).all()
+
+		return render(request,'course-details.html',{'course_data':course_data,'lecture_data':lecture_data})
+	else:
+		return HttpResponse("<h1>Course not found")
 def courses(request):
-	return render(request,'courses.html',{})
+	if check_user:
+		course_data=CourseData.objects.all()
+		return render(request,'courses.html',{'course_data':course_data})
+	else:
+		return HttpResponse("<h1>Course not found")
+
 def elements(request):
 	return render(request,'elements.html',{})
 def singleblog(request):
@@ -158,7 +170,6 @@ def adminsavecourse(request):
 			fee=request.POST.get('fee')
 			objective=request.POST.get('objective')
 			eligibility=request.POST.get('eligibility')
-			contents=request.POST.get('content')
 			thumbnail=request.FILES['thumbnail']
 			c="CRS00"
 			x=1
@@ -174,7 +185,6 @@ def adminsavecourse(request):
 				Course_Fee=fee,
 				Course_Objective=objective,
 				Course_Eligibility=eligibility,
-				Course_Content=contents,
 				Course_Thumb=thumbnail
 				)
 			if CourseData.objects.filter(Course_Name=name).exists():
@@ -197,11 +207,52 @@ def userdashboard(request):
 		data=UserData.objects.filter(User_ID=uid).all()
 	return render(request,'userdashboard.html',{'data':data})
 def courseplayer(request):
-	return render(request,'courseplayer.html',{})
+	if check_user:
+		lecture_id=request.GET.get('lecture_id')
+		course_id=request.GET.get('course_id')
+		lecture_data=LecturesData.objects.filter(Lecture_ID=lecture_id)
+		lecture_list=LecturesData.objects.filter(Course_ID=course_id).all()
+		
+		return render(request,'courseplayer.html',{'lecture_data':lecture_data,'lecture_list':lecture_list})
+	else:
+		return HttpResponse("not allowed")
 def adminaddlectures(request):
-	return render(request,'adminpages/addlectures.html',{})
+	try:
+		adminid=request.session['adminid']
+		data=CourseData.objects.all()
+		return render(request,'adminpages/addlectures.html',{'data':data})
+	except:
+		return HttpResponse('<h1>Error 404 : Page Not Found</h1>')
+@csrf_exempt
+def adminsavelecture(request):
+	if request.method=='POST':
+		course=request.POST.get('course')
+		name=request.POST.get('name')
+		video=request.FILES['video']
+		l="LEC00"
+		x=1
+		lid=l+str(x)
+		while LecturesData.objects.filter(Lecture_ID=lid).exists():
+			x=x+1
+			lid=l+str(x)
+		x=int(x)
+		obj=LecturesData(
+			Lecture_ID=lid,
+			Course_ID=course,
+			Lecture_Name=name,
+			Lecture_Video=video
+			)
+		obj.save()
+		return HttpResponse("<script>alert('Lecture Added Successfully'); window.location.replace('/adminaddlectures/')</script>")
+	else:
+		return HttpResponse('<h1>Error 404 : Page Not Found</h1>')
 def adminlectureslist(request):
-	return render(request,'adminpages/lectureslist.html',{})
+	try:
+		adminid=request.session['adminid']
+		data=LecturesData.objects.all()
+		return render(request,'adminpages/lectureslist.html',{'data':data})
+	except:
+		return HttpResponse('<h1>Error 404 : Page Not Found</h1>')
 def adminuserslist(request):
 	return render(request,'adminpages/userslist.html',{})
 def adminactiveusers(request):
@@ -210,13 +261,36 @@ def admindeactiveusers(request):
 	return render(request,'adminpages/deactiveusers.html',{})
 def forget_password(request):
 	if request.method=='POST':
-		uid=request.session['userid']
-		data=UserData.objects.filter(User_ID=uid).values('User_Password')[0]['User_Password']
-		sub='Your Account Password'
+
 		email=request.POST['email']
+		if UserData.objects.filter(User_Email=email).exists():
+			data=UserData.objects.filter(User_Email=email).values('User_Password')[0]['User_Password']
+			sub='Your Account Password'
+			
+			email=EmailMessage(sub,data,to=[email])
+			email.send()
+
+			return HttpResponse("<script>alert('Your Password has been send to your mail'); window.location.replace('/login/')</script>")
+	
+		else:
+			return HttpResponse("Email not exists ")
+
+		uid=request.session['userid']
+		password=''
+		data=UserData.objects.filter(User_ID=uid)
+		for x in data:
+			password=x.User_Password
+		sub='Edutern - Your Account Password'
+		email=request.POST['email']
+		msg='''Hi there!
+Your Edutern Account Password is,
+
+'''+password+'''
+
+Thanks for creating your account on Edutern,
+Team Edutern'''
 		email=EmailMessage(sub,data,to=[email])
 		email.send()
-
 		return HttpResponse("<script>alert('Your Password has been send to your mail'); window.location.replace('/login/')</script>")
 	else:
 		return render(request,'forgot_password.html',{})
@@ -236,8 +310,6 @@ def editPassword(request):
 		user_data=UserData.objects.filter(User_ID=uid)
 		old_pass=UserData.objects.filter(User_ID=uid).values('User_Password')[0]['User_Password']
 		old_password=request.POST['old_password']
-		print(old_pass)
-		print(old_password)
 		if old_pass==old_password:
 			for i in user_data:
 				new_pass=int(request.POST['new_password'])

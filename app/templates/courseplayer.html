@@ -136,20 +136,29 @@
         <div class="container">
             <div class="row">
                 <video controls style="width:100%;">
-                    <source src="{% static 'dheere.mp4' %}" type="video/mp4">
+                    {% for i in lecture_data %}
+                    <source src="{{i.Lecture_Video}}" type="video/mp4">
+                    {% endfor %}
                 </video>
             </div>
             <div class="row" style="margin-top:30px;">
                 <div style="padding:20px;margin:auto;"class="column">
                 <h2>Play List</h2>
+                
+                
                 <table class="w3-table-all w3-hoverable" style="font-size:20px;">
-                    
+                   {% for i in lecture_list %}
                     <tr>
                         <td style="padding-top:35px;"><span style="padding:10px;padding-top:10px;"class="w3-green">Completed <i class="fa fa-check"></i></span></td>
                         <td><img style="width:100px;"src="{% static 'img/event1.jpg' %}"></td>
-                        <td style="padding-top:35px;font-weight:bold;font-size:28px;">Lecture1 Introduction</td>
+                        <td style="padding-top:35px;font-weight:bold;font-size:28px;">Lecture1 {{i.Lecture_Name}}</td>
                     </tr>
+                    {% endfor %}
+
+                    
                 </table>
+            
+                
                 </div>
                 <div style="padding:20px;margin:auto;"class="column">
                     <h2>Progress</h2>

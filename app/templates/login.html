@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% load socialaccount %}
 <html lang="en">
 
 <head>
@@ -19,6 +20,7 @@
     <!-- main css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -134,11 +136,13 @@
     <section class="contact_area section_gap">
         <div class="container">
             <div class="row">
-                <div class="column" style="padding:50px;background-color:black;">
+                <div class="column" style="padding:50px;background-color:black;width:500px;">
                     <h3 style="color:white;margin:auto;">Don't have a account?</h3>
                     <a href="/registration/" style="width:100%;margin-top:20px;" class="btn primary-btn">Register Here</a>
+                    <a href="{% provider_login_url 'google' %}" style="background-color:red;width:100%;margin-top:20px;" class="w3-button w3-red w3-hover-black">Register with <i class="fa fa-google"></i></a>
+                    <a href="/registration/" style="background-color:red;width:100%;margin-top:20px;" class="w3-button w3-blue w3-hover-black">Register with <i class="fa fa-facebook"></i></a>
                 </div>
-                <div style="padding:50px;width:700px;"class="column">
+                <div style="padding:50px;width:auto;"class="column">
                     <form class="row contact_form" action="/checklogin/" method="POST">
                             <div style="width:100%;"class="form-group">
                                 <input type="text" class="form-control" name="email"  rows="1" placeholder="Enter Email">

@@ -62,9 +62,11 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.html"><img style="width:200px;"src="{% static 'img/EDUTERN LOGO BY SUMMI CREATIONS.png' %}" alt=""></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="navbar-brand logo_h" href="index.html"><img style="width:200px;"
+                            src="{% static 'img/EDUTERN LOGO BY SUMMI CREATIONS.png' %}" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -79,7 +81,8 @@
                                     aria-haspopup="true" aria-expanded="false">Pages</a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="course-details.html">Course Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="course-details.html">Course
+                                            Details</a></li>
                                     <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
                                 </ul>
                             </li>
@@ -88,7 +91,8 @@
                                     aria-haspopup="true" aria-expanded="false">Blog</a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -144,22 +148,21 @@
             </div>
             <div class="row">
                 <!-- single course -->
+                {% for course in course_data %}
                 <div class="col-lg-3 col-md-6">
                     <div class="single_course">
                         <div class="course_head overlay">
                             <img class="img-fluid w-100" src="{% static 'img/courses/trainer1.jpg' %}" alt="">
                             <div class="authr_meta">
                                 <img src="{% static 'img/author1.png' %}" alt="">
-                                <span>Mart Taylor</span>
+                                <span>{{course.Course_Trainer}}</span>
                             </div>
                         </div>
                         <div class="course_content">
                             <h4>
-                                <a href="course-details.html">Learn React js beginners</a>
+                                <a href="/coursedetails?course_id={{course.Course_ID}}">{{course.Course_Name}}</a>
                             </h4>
-                            <p>When television was young, there was a huge popular show based on the still popular
-                                fictional character of
-                                Superman.</p>
+                            <p>{{course.Course_Content}}</p>
                             <div class="course_meta d-flex justify-content-between">
                                 <div>
                                     <span class="meta_info">
@@ -172,117 +175,19 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <span class="price">$150</span>
+                                    <span class="price">{{course.Course_Fee}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
                 <!-- single course -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="single_course">
-                        <div class="course_head overlay">
-                            <img class="img-fluid w-100" src="{% static 'img/courses/trainer1.jpg' %}" alt="">
-                            <div class="authr_meta">
-                                <img src="{% static 'img/author1.png' %}" alt="">
-                                <span>Mart Taylor</span>
-                            </div>
-                        </div>
-                        <div class="course_content">
-                            <h4>
-                                <a href="course-details.html">Learn React js beginners</a>
-                            </h4>
-                            <p>When television was young, there was a huge popular show based on the still popular
-                                fictional character of
-                                Superman.</p>
-                            <div class="course_meta d-flex justify-content-between">
-                                <div>
-                                    <span class="meta_info">
-                                        <a href="#">
-                                            <i class="lnr lnr-user"></i>355
-                                        </a>
-                                    </span>
-                                    <span class="meta_info"><a href="#">
-                                            <i class="lnr lnr-bubble"></i>35
-                                        </a></span>
-                                </div>
-                                <div>
-                                    <span class="price df_color1">$150</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- single course -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="single_course">
-                        <div class="course_head overlay">
-                            <img class="img-fluid w-100" src="{% static 'img/courses/trainer1.jpg' %}" alt="">
-                            <div class="authr_meta">
-                                <img src="{% static 'img/author1.png' %}" alt="">
-                                <span>Mart Taylor</span>
-                            </div>
-                        </div>
-                        <div class="course_content">
-                            <h4>
-                                <a href="course-details.html">Learn React js beginners</a>
-                            </h4>
-                            <p>When television was young, there was a huge popular show based on the still popular
-                                fictional character of
-                                Superman.</p>
-                            <div class="course_meta d-flex justify-content-between">
-                                <div>
-                                    <span class="meta_info">
-                                        <a href="#">
-                                            <i class="lnr lnr-user"></i>355
-                                        </a>
-                                    </span>
-                                    <span class="meta_info"><a href="#">
-                                            <i class="lnr lnr-bubble"></i>35
-                                        </a></span>
-                                </div>
-                                <div>
-                                    <span class="price">$150</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- single course -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="single_course">
-                        <div class="course_head overlay">
-                            <img class="img-fluid w-100" src="{% static 'img/courses/trainer1.jpg' %}" alt="">
-                            <div class="authr_meta">
-                                <img src="{% static 'img/author1.png' %}" alt="">
-                                <span>Mart Taylor</span>
-                            </div>
-                        </div>
-                        <div class="course_content">
-                            <h4>
-                                <a href="course-details.html">Learn React js beginners</a>
-                            </h4>
-                            <p>When television was young, there was a huge popular show based on the still popular
-                                fictional character of
-                                Superman.</p>
-                            <div class="course_meta d-flex justify-content-between">
-                                <div>
-                                    <span class="meta_info">
-                                        <a href="#">
-                                            <i class="lnr lnr-user"></i>355
-                                        </a>
-                                    </span>
-                                    <span class="meta_info"><a href="#">
-                                            <i class="lnr lnr-bubble"></i>35
-                                        </a></span>
-                                </div>
-                                <div>
-                                    <span class="price df_color2">$150</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -332,10 +237,12 @@
                     <h4>Newsletter</h4>
                     <p>You can trust us. we only send promo offers,</p>
                     <div class="form-wrap" id="mc_embed_signup">
-                        <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                        <form target="_blank"
+                            action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
                             method="get" class="form-inline">
-                            <input class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''"
-                                onblur="this.placeholder = 'Your Email Address '" required="" type="email">
+                            <input class="form-control" name="EMAIL" placeholder="Your Email Address"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '"
+                                required="" type="email">
                             <button class="click-btn btn btn-default">
                                 <span>subscribe</span>
                             </button>

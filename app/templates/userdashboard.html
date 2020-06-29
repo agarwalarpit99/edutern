@@ -75,31 +75,11 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="course-details.html">Course Details</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item submenu dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Blog</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link search" id="search">
-                                    <i class="lnr lnr-magnifier"></i>
-                                </a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/index/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/courses/">Courses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#courses" onclick="document.getElementById('courses').style.display='block';document.getElementById('account').style.display='none';">My Courses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#account" onclick="document.getElementById('courses').style.display='none';document.getElementById('account').style.display='block';">My Account</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/courses/">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -132,13 +112,13 @@
     <section class="blog_categorie_area">
         <div class="container">
             <div class="row">
-                <a href="#courses" onclick="document.getElementById('courses').style.display='block';document.getElementById('account').style.display='none';">
+                <a href="/courses/" onclick="document.getElementById('courses').style.display='block';document.getElementById('account').style.display='none';">
                     <div class="col-lg-4">
                         <div class="categories_post">
                             <img src="{% static 'img/blog/cat-post/cat-post-3.jpg' %}" alt="post">
                             <div class="categories_details">
                                 <div class="categories_text">
-                                    <a href="#courses" onclick="document.getElementById('courses').style.display='block';document.getElementById('account').style.display='none';">
+                                    <a href="/courses/" onclick="document.getElementById('courses').style.display='block';document.getElementById('account').style.display='none';">
                                         <h5>My Courses</h5>
                                     </a>
                                     <div class="border_line"></div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from app.views import *
 from django.conf import settings
 from django.conf.urls.static import static
@@ -20,6 +20,7 @@ urlpatterns = [
     path('checklogin/',checklogin),
     path('userdashboard/',userdashboard),
     path('courseplayer/',courseplayer),
+    path('accounts/', include('allauth.urls')),
 
     path('adminindex/',adminindex),
     path('adminlogin/',adminlogin),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('adminsavecourse/',adminsavecourse),
     path('admincourselist/',admincourselist),
     path('adminaddlectures/',adminaddlectures),
+    path('adminsavelecture/',adminsavelecture),
     path('adminlectureslist/',adminlectureslist),
     path('adminuserslist/',adminuserslist),
     path('adminactiveusers/',adminactiveusers),
